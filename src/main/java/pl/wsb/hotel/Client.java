@@ -1,10 +1,8 @@
 package pl.wsb.hotel;
 
 import java.time.LocalDate;
+import java.time.Period;
 
-/**
- *
- */
 public class Client {
     private String id;
     private String firstName;
@@ -34,10 +32,15 @@ public class Client {
         return this.firstName + " " + this.lastName;
     }
 
+    public int getAge() {
+        Period period = Period.between(this.birthDate, LocalDate.now());
+        int[] age = {period.getYears(), period.getMonths(), period.getDays()};
+        return age[0];
+    }
+
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
-
 
     public String getLastName() {
         return lastName;

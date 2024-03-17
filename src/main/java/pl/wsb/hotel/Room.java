@@ -5,7 +5,6 @@ public class Room {
     private String description;
     private double area;
     private int floor;
-
     private boolean hasKingSizeBed;
 
     public Room(String id, String description, double area, int floor, boolean hasKingSizeBed) {

@@ -3,10 +3,8 @@ import java.time.LocalDate;
 
 public class RoomReservation {
     private LocalDate date;
-
     private Client client;
     private Room room;
-
     private boolean isConfirmed;
 
     public RoomReservation(LocalDate date, Client client, Room room, boolean isConfirmed) {
@@ -51,7 +49,4 @@ public class RoomReservation {
     private void confirmReservation() {
         this.isConfirmed = true;
     }
-
-
-
 }
