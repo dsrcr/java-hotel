@@ -1,50 +1,29 @@
 package pl.wsb.hotel;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class RoomReservationTest {
-
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
     @Test
-    void getDate() {
-    }
+    public void testRoomReservationFields() {
+        Client client = new Client("123123", "Adam", "Smith", LocalDate.of(1999, 9, 11));
 
-    @Test
-    void setDate() {
-    }
+        Room room = new Room("12312", "description", 223.45, 4, false, 2, false);
 
-    @Test
-    void getClient() {
-    }
+        RoomReservation reservation = new RoomReservation(LocalDate.now(), client, room, false);
 
-    @Test
-    void setClient() {
-    }
+        assertEquals(LocalDate.now(), reservation.getDate());
+        assertEquals(client, reservation.getClient());
+        assertEquals(room, reservation.getRoom());
+        assertFalse(reservation.isConfirmed());
 
-    @Test
-    void getRoom() {
-    }
+        reservation.setDate(LocalDate.now().plusDays(1));
+        reservation.setConfirmed(true);
 
-    @Test
-    void setRoom() {
-    }
-
-    @Test
-    void isConfirmed() {
-    }
-
-    @Test
-    void setConfirmed() {
+        assertEquals(LocalDate.now().plusDays(1), reservation.getDate());
+        assertTrue(reservation.isConfirmed());
     }
 }

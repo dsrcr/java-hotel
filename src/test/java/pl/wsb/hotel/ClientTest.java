@@ -1,58 +1,26 @@
 package pl.wsb.hotel;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.time.LocalDate;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ClientTest {
 
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
     @Test
-    void getId() {
-    }
+    public void testClientFields() {
+        LocalDate birthDate = LocalDate.of(1999, 9, 11);
+        Client client = new Client("123123", "Adam", "Smith", birthDate);
 
-    @Test
-    void setId() {
-    }
+        assertEquals("123123", client.getId());
+        assertEquals("Adam", client.getFirstName());
+        assertEquals("Smith", client.getLastName());
+        assertEquals(birthDate, client.getBirthDate());
 
-    @Test
-    void getBirthDate() {
-    }
+        LocalDate newBirthDate = LocalDate.of(2020, 1, 1);
+        client.setBirthDate(newBirthDate);
 
-    @Test
-    void getFullName() {
-    }
-
-    @Test
-    void getAge() {
-    }
-
-    @Test
-    void setBirthDate() {
-    }
-
-    @Test
-    void getLastName() {
-    }
-
-    @Test
-    void setLastName() {
-    }
-
-    @Test
-    void getFirstName() {
-    }
-
-    @Test
-    void setFirstName() {
+        assertEquals(newBirthDate, client.getBirthDate());
     }
 }

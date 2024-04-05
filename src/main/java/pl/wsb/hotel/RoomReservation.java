@@ -11,7 +11,7 @@ public class RoomReservation {
         this.date = date;
         this.client = client;
         this.room = room;
-        this.isConfirmed = isConfirmed;
+        this.isConfirmed = false;
     }
 
     public LocalDate getDate() {

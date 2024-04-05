@@ -34,9 +34,8 @@ public class Client {
 
     public int getAge() {
         Period period = Period.between(this.birthDate, LocalDate.now());
-        // int[] age = {period.getYears(), period.getMonths(), period.getDays()};
-        // return age[0];
-        return period.getYears();
+        int[] age = {period.getYears(), period.getMonths(), period.getDays()};
+        return age[0]; // Zmiana z age[1] na age[0]
     }
 
     public void setBirthDate(LocalDate birthDate) {
