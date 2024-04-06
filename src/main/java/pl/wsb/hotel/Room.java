@@ -6,19 +6,19 @@ public class Room {
     private double area;
     private int floor;
     private boolean hasKingSizeBed;
-
-    private int windowNumber;
-
+    private int numberOfWindows;
     private boolean hasAc;
+    private boolean hasTv;
 
-    public Room(String id, String description, double area, int floor, boolean hasKingSizeBed, int windowNumber, boolean hasAc) {
+    public Room(String id, String description, double area, int floor, boolean hasKingSizeBed, int numberOfWindows, boolean hasAc, boolean hasTv) {
         this.id = id;
         this.description = description;
         this.area = area;
         this.floor = floor;
         this.hasKingSizeBed = hasKingSizeBed;
-        this.windowNumber = windowNumber;
+        this.numberOfWindows = numberOfWindows;
         this.hasAc = hasAc;
+        this.hasTv = hasTv;
     }
 
     public String getId() {
@@ -61,12 +61,12 @@ public class Room {
         this.hasKingSizeBed = hasKingSizeBed;
     }
 
-    public int getWindowNumber() {
-        return windowNumber;
+    public int getNumberOfWindows() {
+        return numberOfWindows;
     }
 
-    public void setWindowNumber(int windowNumber) {
-        this.windowNumber = windowNumber;
+    public void setNumberOfWindows(int numberOfWindows) {
+        this.numberOfWindows = numberOfWindows;
     }
 
     public boolean isHasAc() {
@@ -75,5 +75,13 @@ public class Room {
 
     public void setHasAc(boolean hasAc) {
         this.hasAc = hasAc;
+    }
+
+    public boolean isHasTv() {
+        return hasTv;
+    }
+
+    public void setHasTv(boolean hasTv) {
+        this.hasTv = hasTv;
     }
 }
