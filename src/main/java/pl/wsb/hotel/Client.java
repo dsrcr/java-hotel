@@ -8,12 +8,18 @@ public class Client {
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
+    private boolean sex;
+    private String emailAddress;
+    private long phoneNumber;
 
-    public Client(String id, String firstName, String lastName, LocalDate birthDate) {
+    public Client(String id, String firstName, String lastName, LocalDate birthDate, boolean sex, String emailAddress, long phoneNumber) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
+        this.sex = sex;
+        this.emailAddress = emailAddress;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getId() {
@@ -35,7 +41,7 @@ public class Client {
     public int getAge() {
         Period period = Period.between(this.birthDate, LocalDate.now());
         int[] age = {period.getYears(), period.getMonths(), period.getDays()};
-        return age[0]; // Zmiana z age[1] na age[0]
+        return age[0];
     }
 
     public void setBirthDate(LocalDate birthDate) {
@@ -56,5 +62,29 @@ public class Client {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public boolean isSex() {
+        return sex;
+    }
+
+    public void setSex(boolean sex) {
+        this.sex = sex;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public long getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(long phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

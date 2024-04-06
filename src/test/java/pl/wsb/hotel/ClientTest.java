@@ -1,6 +1,7 @@
 package pl.wsb.hotel;
 
 import org.junit.jupiter.api.Test;
+
 import java.time.LocalDate;
 
 
@@ -11,7 +12,7 @@ class ClientTest {
     @Test
     public void testClientFields() {
         LocalDate birthDate = LocalDate.of(1999, 9, 11);
-        Client client = new Client("123123", "Adam", "Smith", birthDate);
+        Client client = new Client("123123", "Adam", "Smith", birthDate, true, "adamsmith@test.com", 555555555);
 
         assertEquals("123123", client.getId());
         assertEquals("Adam", client.getFirstName());
