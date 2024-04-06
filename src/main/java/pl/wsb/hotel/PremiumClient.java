@@ -5,8 +5,8 @@ import java.time.LocalDate;
 public class PremiumClient extends Client{
     private PremiumAccountType premium_account_type;
 
-    public PremiumClient(String id, String firstName, String lastName, LocalDate birthDate, boolean sex, String emailAddress, long phoneNumber, boolean premiumAccountType, PremiumAccountType premiumAccountType1) {
-        super(id, firstName, lastName, birthDate, sex, emailAddress, phoneNumber);
+    public PremiumClient(String id, String firstName, String lastName, LocalDate birthDate, String email, String phoneNumber, String pesel, PremiumAccountType premiumAccountType1) {
+        super(id, firstName, lastName, birthDate, email, phoneNumber, pesel);
         premium_account_type = premiumAccountType1;
     }
 
