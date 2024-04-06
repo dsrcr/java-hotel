@@ -8,12 +8,18 @@ public class Client {
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
+    private String emailAddress;
+    private String phoneNumber;
+    private String pesel;
 
-    public Client(String id, String firstName, String lastName, LocalDate birthDate) {
+    public Client(String id, String firstName, String lastName, LocalDate birthDate, String emailAddress, String phoneNumber, String pesel) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
+        this.emailAddress = emailAddress;
+        this.phoneNumber = phoneNumber;
+        this.pesel = pesel;
     }
 
     public String getId() {
@@ -28,6 +34,10 @@ public class Client {
         return birthDate;
     }
 
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
     public String getFullName() {
         return this.firstName + " " + this.lastName;
     }
@@ -35,11 +45,7 @@ public class Client {
     public int getAge() {
         Period period = Period.between(this.birthDate, LocalDate.now());
         int[] age = {period.getYears(), period.getMonths(), period.getDays()};
-        return age[0]; // Zmiana z age[1] na age[0]
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+        return age[0];
     }
 
     public String getLastName() {
@@ -56,5 +62,29 @@ public class Client {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPesel() {
+        return pesel;
+    }
+
+    public void setPesel(String pesel) {
+        this.pesel = pesel;
     }
 }
