@@ -10,5 +10,12 @@ public class Main {
         RoomReservation reservation = new RoomReservation(LocalDate.now(), client, room, false);
         System.out.println("Client: " + reservation.getClient().getFullName());
         System.out.println("Age: " + reservation.getClient().getAge());
+
+        SpecialService serwis = new SpecialService();
+        //System.out.println("Test: " + serwis.getName());
+        System.out.printf("TEST:", serwis.getSpecialService() + "KONIEC");
+
+
+
     }
 }
