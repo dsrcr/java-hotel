@@ -1,5 +1,7 @@
 package pl.wsb.hotel;
 
+import java.time.LocalTime;
+
 public abstract class SpecialService {
     private String name;
 
@@ -12,4 +14,8 @@ public abstract class SpecialService {
     public String getName() {
         return name;
     }
+
+    abstract boolean serviceIsAvailableAtTime(LocalTime target);
+
+    abstract String getFamilyOfService();
 }

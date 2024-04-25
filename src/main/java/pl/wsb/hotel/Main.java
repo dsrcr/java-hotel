@@ -1,6 +1,7 @@
 package pl.wsb.hotel;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Main {
     public static void main(String[] args) {
@@ -23,6 +24,10 @@ public class Main {
         SpecialService[] services = hotel.getSpecialServices();
         for (SpecialService service : services) {
             service.orderService();
+            System.out.println("Service " + service.getName() + " available: " +
+                                service.serviceIsAvailableAtTime(LocalTime.now()));
+
+            System.out.println("Family of service: " + service.getFamilyOfService());
         }
     }
 }
