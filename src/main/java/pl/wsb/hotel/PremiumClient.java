@@ -3,22 +3,24 @@ package pl.wsb.hotel;
 import java.time.LocalDate;
 
 public class PremiumClient extends Client{
-    private PremiumAccountType premium_account_type;
+    private PremiumAccountType premiumAccountType;
 
-    public PremiumClient(String id, String firstName, String lastName, LocalDate birthDate, String email, String phoneNumber, String pesel, PremiumAccountType premiumAccountType1) {
-        super(id, firstName, lastName, birthDate, email, phoneNumber, pesel);
-        premium_account_type = premiumAccountType1;
+    public PremiumClient(String id, String firstName, String lastName, LocalDate birthDate, String emailAddress, String phoneNumber, String pesel, PremiumAccountType premiumAccountType) {
+        super(id, firstName, lastName, birthDate, emailAddress, phoneNumber, pesel);
+        this.premiumAccountType = premiumAccountType;
     }
 
-    public PremiumAccountType getPremium_account_type() {
-        return premium_account_type;
-    }
-
-    public void setPremium_account_type(PremiumAccountType premium_account_type) {
-        this.premium_account_type = premium_account_type;
-    }
     @Override
     public String getFullName() {
-        return getLastName() + ", " + getFirstName();
+        return "[premium] " + getLastName() + ", " + getFirstName();
+    }
+
+    public PremiumAccountType getPremiumAccountType() {
+        return premiumAccountType;
+    }
+
+    public void setPremiumAccountType(PremiumAccountType premiumAccountType) {
+        this.premiumAccountType = premiumAccountType;
     }
 }
+
