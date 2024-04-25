@@ -1,14 +1,16 @@
-/*
 package pl.wsb.hotel;
-import java.time.LocalDate;
 
+import java.text.SimpleDateFormat;
 
-public class TimeService extends SpecialService{
-    public static void main(String[] args) {
-
-        LocalDate date_now = LocalDate.now();
-        System.out.println("Current Date: " + date_now);
+public class TimeService extends SpecialService {
+    public TimeService(String name) {
+        super(name);
     }
 
+    @Override
+    void orderService() {
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
+        System.out.println("Current time: " + formatter.format(System.currentTimeMillis()));
+
+    }
 }
-*/

@@ -11,11 +11,18 @@ public class Main {
         System.out.println("Client: " + reservation.getClient().getFullName());
         System.out.println("Age: " + reservation.getClient().getAge());
 
-        SpecialService serwis = new SpecialService();
-        //System.out.println("Test: " + serwis.getName());
-        System.out.printf("TEST:", serwis.getSpecialService() + "KONIEC");
 
+        LuggageService x = new LuggageService("Walizki");
+        LuggageService y = new LuggageService("Samochód");
+        TimeService z = new TimeService("Czas");
 
-
+        Hotel hotel = new Hotel("Hotel");
+        hotel.addSpecialService(x);
+        hotel.addSpecialService(y);
+        hotel.addSpecialService(z);
+        SpecialService[] services = hotel.getSpecialServices();
+        for (SpecialService service : services) {
+            service.orderService();
+        }
     }
 }
