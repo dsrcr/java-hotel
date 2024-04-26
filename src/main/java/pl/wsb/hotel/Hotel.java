@@ -1,31 +1,35 @@
 package pl.wsb.hotel;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Hotel {
     private String name;
+    private List<Client> clients;
+    private List<Room> rooms;
+    private List<RoomReservation> reservations;
     private List<SpecialService> specialServices;
-    private Client[] clients;
-    private RoomReservation[] reservations;
-    private Room[] rooms;
 
-    public Hotel(String name) {
-        this.name = name;
-        this.specialServices = new ArrayList<>();
+    public List<Client> getClients() {
+        return clients;
     }
 
-    public String getName() {
-        return name;
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
     }
 
-    public void addSpecialService(SpecialService service) {
-        this.specialServices.add(service);
+    public List<Room> getRooms() {
+        return rooms;
     }
 
-    public SpecialService[] getSpecialServices() {
-        return this.specialServices.toArray(new SpecialService[0]);
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
     }
 
+    public List<RoomReservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<RoomReservation> reservations) {
+        this.reservations = reservations;
+    }
 }
