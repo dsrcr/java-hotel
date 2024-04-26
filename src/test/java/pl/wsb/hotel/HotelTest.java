@@ -15,7 +15,7 @@ public class HotelTest {
 
     @Before
     public void setUp() {
-        hotel = new Hotel();
+        hotel = new Hotel("Example hotel");
         clients = new ArrayList<>();
         rooms = new ArrayList<>();
         reservations = new ArrayList<>();

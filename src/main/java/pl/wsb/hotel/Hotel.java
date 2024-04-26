@@ -9,6 +9,10 @@ public class Hotel {
     private List<RoomReservation> reservations;
     private List<SpecialService> specialServices;
 
+    public Hotel(String name) {
+        this.name = name;
+    }
+
     public List<Client> getClients() {
         return clients;
     }
@@ -31,5 +35,21 @@ public class Hotel {
 
     public void setReservations(List<RoomReservation> reservations) {
         this.reservations = reservations;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<SpecialService> getSpecialServices() {
+        return specialServices;
+    }
+
+    public void addSpecialService(List<SpecialService> specialServices) {
+        this.specialServices = specialServices;
     }
 }

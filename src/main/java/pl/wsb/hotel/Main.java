@@ -2,6 +2,8 @@ package pl.wsb.hotel;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,16 +19,16 @@ public class Main {
         LuggageService y = new LuggageService("Samochód");
         TimeService z = new TimeService("Czas");
 
-        Hotel hotel = new Hotel("Hotel");
-        hotel.addSpecialService(x);
-        hotel.addSpecialService(y);
-        hotel.addSpecialService(z);
-        SpecialService[] services = hotel.getSpecialServices();
-        for (SpecialService service : services) {
+        List<SpecialService> specialServices = new ArrayList<>();
+
+        specialServices.add(x);
+        specialServices.add(y);
+        specialServices.add(z);
+
+        for (SpecialService service : specialServices) {
             service.orderService();
             System.out.println("Service " + service.getName() + " available: " +
-                                service.serviceIsAvailableAtTime(LocalTime.now()));
-
+                    service.serviceIsAvailableAtTime(LocalTime.now()));
             System.out.println("Family of service: " + service.getFamilyOfService());
         }
     }
