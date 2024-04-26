@@ -18,4 +18,8 @@ public abstract class SpecialService {
     abstract boolean serviceIsAvailableAtTime(LocalTime target);
 
     abstract String getFamilyOfService();
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

@@ -1,7 +1,9 @@
 package pl.wsb.hotel;
 
 import org.junit.Test;
+
 import java.time.LocalDate;
+
 import static org.junit.Assert.*;
 
 public class PremiumClientTest {

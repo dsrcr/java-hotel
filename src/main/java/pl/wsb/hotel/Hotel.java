@@ -13,6 +13,14 @@ public class Hotel {
         this.name = name;
     }
 
+    public Hotel(String name, List<SpecialService> specialServices, List<RoomReservation> reservations, List<Room> rooms, List<Client> clients) {
+        this.name = name;
+        this.specialServices = specialServices;
+        this.reservations = reservations;
+        this.rooms = rooms;
+        this.clients = clients;
+    }
+
     public List<Client> getClients() {
         return clients;
     }

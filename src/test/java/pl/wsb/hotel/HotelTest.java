@@ -1,9 +1,14 @@
 package pl.wsb.hotel;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.time.LocalDate;
 
 public class HotelTest {
@@ -12,6 +17,7 @@ public class HotelTest {
     private List<Client> clients;
     private List<Room> rooms;
     private List<RoomReservation> reservations;
+
 
     @Before
     public void setUp() {
