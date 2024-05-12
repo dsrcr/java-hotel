@@ -12,9 +12,9 @@ import java.util.List;
 
 public class Hotel implements HotelCapability {
     private String name;
-    private List<Client> clients;
-    private List<Room> rooms;
-    private List<RoomReservation> reservations;
+    private List<Client> clients = List.of();
+    private List<Room> rooms = List.of();
+    private List<RoomReservation> reservations = List.of();
     private List<SpecialService> specialServices;
 
     public Hotel(String name) {
@@ -101,7 +101,21 @@ public class Hotel implements HotelCapability {
 
     @Override
     public String addNewReservation(String clientId, String roomId, LocalDate date) throws ClientNotFoundException, RoomNotFoundException, RoomReservedException {
-        return "";
+        Client client = clients.stream().filter(c -> c.getId().equals(clientId)).findFirst().orElse(null);
+        if (client == null) {
+            throw new ClientNotFoundException("Client " + clientId + " not found!");
+        }
+        Room room = rooms.stream().filter(r -> r.getId().equals(roomId)).findFirst().orElse(null);
+        if (room == null) {
+            throw new RoomNotFoundException("Room " + roomId + " not found!");
+        }
+        if (isRoomReserved(roomId, date)) {
+            throw new RoomReservedException(roomId, date);
+        }
+
+        RoomReservation newReservation = new RoomReservation(date, client, room, false);
+        this.reservations.add(newReservation);
+        return newReservation.getReservationId();
     }
 
     @Override
@@ -111,7 +125,12 @@ public class Hotel implements HotelCapability {
 
     @Override
     public boolean isRoomReserved(String roomId, LocalDate date) throws RoomNotFoundException {
-        return false;
+        Room room = rooms.stream().filter(r -> r.getId().equals(roomId)).findFirst().orElse(null);
+        if (room == null) {
+            throw new RoomNotFoundException("Room " + roomId + " not found!");
+        }
+        return this.reservations.stream().anyMatch(r -> r.getRoom().getId()
+                .equals(roomId) && r.getDate().equals(date));
     }
 
     @Override

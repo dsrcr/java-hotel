@@ -2,6 +2,9 @@ package pl.wsb.hotel;
 
 import org.junit.Before;
 import org.junit.Test;
+import pl.wsb.hotel.exceptions.ClientNotFoundException;
+import pl.wsb.hotel.exceptions.RoomNotFoundException;
+import pl.wsb.hotel.exceptions.RoomReservedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,5 +75,52 @@ public class HotelTest {
         RoomReservation reservationToRemove = reservations.get(0);
         hotel.getReservations().remove(reservationToRemove);
         assertFalse(hotel.getReservations().contains(reservationToRemove));
+    }
+
+    @Test
+    public void addNewReservation() {
+        try {
+            hotel.addNewReservation("1", "102", LocalDate.now());
+        } catch (Exception e) {
+            fail("Exception thrown: " + e.getMessage());
+        }
+        try {
+            hotel.addNewReservation("2", "102", LocalDate.now());
+        } catch (RoomReservedException e) {
+            assertTrue(true);
+        } catch (Exception e) {
+            fail("Wrong exception thrown: " + e.getMessage());
+        }
+        try {
+            hotel.addNewReservation("100", "103", LocalDate.now());
+        } catch (ClientNotFoundException e) {
+            assertTrue(true);
+        } catch (Exception e) {
+            fail("Wrong exception thrown: " + e.getMessage());
+        }
+        try {
+            hotel.addNewReservation("1", "2030", LocalDate.now());
+        } catch (RoomNotFoundException e) {
+            assertTrue(true);
+        } catch (Exception e) {
+            fail("Wrong exception thrown: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void isRoomReserved() {
+        try {
+            assertTrue(hotel.isRoomReserved("101", LocalDate.now()));
+            assertFalse(hotel.isRoomReserved("102", LocalDate.now()));
+        } catch (RoomNotFoundException e) {
+            fail("Exception thrown: " + e.getMessage());
+        }
+        try {
+            hotel.isRoomReserved("2030", LocalDate.now());
+        } catch (RoomNotFoundException e) {
+            assertTrue(true);
+        } catch (Exception e) {
+            fail("Wrong exception thrown: " + e.getMessage());
+        }
     }
 }
