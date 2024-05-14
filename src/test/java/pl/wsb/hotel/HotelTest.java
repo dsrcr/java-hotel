@@ -1,15 +1,18 @@
 package pl.wsb.hotel;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+
+import org.junit.jupiter.api.Test;
 import pl.wsb.hotel.exceptions.ClientNotFoundException;
 import pl.wsb.hotel.exceptions.RoomNotFoundException;
 import pl.wsb.hotel.exceptions.RoomReservedException;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
@@ -21,8 +24,33 @@ public class HotelTest {
     private List<Room> rooms;
     private List<RoomReservation> reservations;
 
+    @Test
+    public void testAddClient() {
+        // Tworzenie rzeczywistego obiektu klasy Hotel
+        Hotel hotel = new Hotel("Example hotel");
 
-    @Before
+        // Dane testowe
+        String firstName = "John";
+        String lastName = "Doe";
+        LocalDate birthDate = LocalDate.of(1990, 5, 15);
+
+        // Wywołanie metody addClient
+        String clientId = hotel.addClient(firstName, lastName, birthDate);
+
+        // Sprawdzenie, czy klient został dodany poprawnie
+        assertNotNull(clientId);
+
+        // Pobranie klienta z listy na podstawie ID
+        Client addedClient = hotel.getClients().get(Integer.parseInt(clientId));
+
+        // Sprawdzenie czy dane klienta są poprawne
+        assertEquals(firstName, addedClient.getFirstName());
+        assertEquals(lastName, addedClient.getLastName());
+        assertEquals(birthDate, addedClient.getBirthDate());
+    }
+
+
+    @BeforeAll
     public void setUp() {
         hotel = new Hotel("Example hotel");
         clients = new ArrayList<>();

@@ -9,6 +9,7 @@ import pl.wsb.hotel.interfaces.HotelCapability;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 public class Hotel implements HotelCapability {
     private String name;
@@ -71,17 +72,28 @@ public class Hotel implements HotelCapability {
 
     @Override
     public String addClient(String firstName, String lastName, LocalDate birthDate) {
-        return "";
+        String id = generateUniqueId();
+        Client newClient = new Client(id, firstName, lastName, birthDate);
+        clients.add(newClient);
+        return id;
+    }
+
+    private String generateUniqueId() {
+        return UUID.randomUUID().toString();
     }
 
     @Override
     public String getClientFullName(String clientId) {
-        return "";
+        Client client = clients.stream().filter(c -> c.getId().equals(clientId)).findFirst().orElse(null);
+        if (client != null) {
+            return client.getFullName();
+        }
+        return "User not found!";
     }
 
     @Override
     public int getNumberOfUnderageClients() {
-        return 0;
+        return (int) clients.stream().filter(c -> c.getAge() < 18).count();
     }
 
     @Override

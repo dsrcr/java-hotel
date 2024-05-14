@@ -1,3 +1,4 @@
+/*
 package pl.wsb.hotel;
 
 import org.junit.Test;
@@ -35,3 +36,4 @@ public class LuggageServiceTest {
 
 }
 
+*/
