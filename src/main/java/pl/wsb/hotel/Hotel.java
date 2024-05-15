@@ -128,7 +128,12 @@ public class Hotel implements HotelCapability {
 
     @Override
     public String confirmReservation(String reservationId) throws ReservationNotFoundException {
-        return "";
+        RoomReservation reservation = reservations.stream().filter(r -> r.getReservationId().equals(reservationId)).findFirst().orElse(null);
+        if (reservation == null) {
+            throw new ReservationNotFoundException("Reservation " + reservationId + " not found!");
+        }
+        reservation.setConfirmed(true);
+        return reservationId;
     }
 
     @Override

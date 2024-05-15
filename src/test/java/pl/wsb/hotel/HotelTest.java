@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import pl.wsb.hotel.exceptions.ClientNotFoundException;
+import pl.wsb.hotel.exceptions.ReservationNotFoundException;
 import pl.wsb.hotel.exceptions.RoomNotFoundException;
 import pl.wsb.hotel.exceptions.RoomReservedException;
 
@@ -89,7 +90,7 @@ public class HotelTest {
     }
 
     @Test
-    public void addNewReservation() {
+    public void testAddNewReservation() {
         try {
             hotel.addNewReservation(clients.get(1).getId(), rooms.get(1).getId(), LocalDate.now());
         } catch (Exception e) {
@@ -119,7 +120,7 @@ public class HotelTest {
     }
 
     @Test
-    public void isRoomReserved() {
+    public void testIsRoomReserved() {
         try {
             assertTrue(hotel.isRoomReserved(rooms.get(0).getId(), LocalDate.now()));
             assertFalse(hotel.isRoomReserved(rooms.get(1).getId(), LocalDate.now()));
@@ -129,6 +130,23 @@ public class HotelTest {
         try {
             hotel.isRoomReserved("2030", LocalDate.now());
         } catch (RoomNotFoundException e) {
+            assertTrue(true);
+        } catch (Exception e) {
+            fail("Wrong exception thrown: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void testConfirmReservation() {
+        try {
+            hotel.confirmReservation(reservations.get(0).getReservationId());
+            assertTrue(reservations.get(0).isConfirmed());
+        } catch (Exception e) {
+            fail("Exception thrown: " + e.getMessage());
+        }
+        try {
+            hotel.confirmReservation("wrong_reservation_id");
+        } catch (ReservationNotFoundException e) {
             assertTrue(true);
         } catch (Exception e) {
             fail("Wrong exception thrown: " + e.getMessage());
