@@ -1,26 +1,23 @@
 package pl.wsb.hotel;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.time.LocalDate;
 
 public class HotelTest {
 
-    private Hotel hotel;
-    private List<Client> clients;
-    private List<Room> rooms;
-    private List<RoomReservation> reservations;
+    private static Hotel hotel;
+    private static List<Client> clients;
+    private static List<Room> rooms;
+    private static List<RoomReservation> reservations;
 
 
-    @Before
-    public void setUp() {
+    @BeforeAll
+    public static void setUp() {
         hotel = new Hotel("Example hotel");
         clients = new ArrayList<>();
         rooms = new ArrayList<>();
@@ -32,9 +29,10 @@ public class HotelTest {
 
         clients.add(new PremiumClient("4", "Bob", "Johnson", LocalDate.of(1980, 2, 28), "bob.johnson@example.com", "654321789", "789456123", PremiumAccountType.PREMIUM));
 
-        rooms.add(new Room("101", "Standard Room", 25.0, 1, true, 2, true, true));
-        rooms.add(new Room("102", "Deluxe Room", 30.0, 2, false, 1, true, true));
-        rooms.add(new Room("103", "Suite", 50.0, 3, true, 3, true, true));
+        rooms.add(new Room("Standard Room", 25.0, 1, true, 2, true, true));
+        rooms.add(new Room("Deluxe Room", 30.0, 2, false, 1, true, true));
+        rooms.add(new Room("Suite", 50.0, 3, true, 3, true, true));
+        rooms.add(new Room("Premium", 50.0, 3, true, 3, true, true));
 
         LocalDate today = LocalDate.now();
         reservations.add(new RoomReservation(today, clients.get(0), rooms.get(0), true));
@@ -48,7 +46,7 @@ public class HotelTest {
 
     @Test
     public void testAddRoom() {
-        Room newRoom = new Room("104", "Executive Room", 40.0, 4, true, 2, true, true);
+        Room newRoom = new Room("Executive Room", 40.0, 4, true, 2, true, true);
         hotel.getRooms().add(newRoom);
         assertTrue(hotel.getRooms().contains(newRoom));
     }
@@ -72,5 +70,17 @@ public class HotelTest {
         RoomReservation reservationToRemove = reservations.get(0);
         hotel.getReservations().remove(reservationToRemove);
         assertFalse(hotel.getReservations().contains(reservationToRemove));
+    }
+
+    @Test
+    public void testGetRoomArea() {
+        double area = hotel.getRoomArea(rooms.get(0).getId());
+        assertEquals(25.0, area);
+    }
+
+    @Test
+    public void testGetNumberOfRoomsWithKingSizeBed() {
+        int count = hotel.getNumberOfRoomsWithKingSizeBed(3);
+        assertEquals(2, count);
     }
 }
