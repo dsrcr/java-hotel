@@ -4,6 +4,11 @@ import org.junit.jupiter.api.BeforeAll;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
+import pl.wsb.hotel.exceptions.ClientNotFoundException;
+import pl.wsb.hotel.exceptions.ReservationNotFoundException;
+import pl.wsb.hotel.exceptions.RoomNotFoundException;
+import pl.wsb.hotel.exceptions.RoomReservedException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
@@ -53,7 +58,7 @@ public class HotelTest {
 
     @Test
     public void testRemoveRoom() {
-        Room roomToRemove = rooms.get(0);
+        Room roomToRemove = rooms.get(1);
         hotel.getRooms().remove(roomToRemove);
         assertFalse(hotel.getRooms().contains(roomToRemove));
     }
@@ -67,7 +72,7 @@ public class HotelTest {
 
     @Test
     public void testRemoveReservation() {
-        RoomReservation reservationToRemove = reservations.get(0);
+        RoomReservation reservationToRemove = reservations.get(1);
         hotel.getReservations().remove(reservationToRemove);
         assertFalse(hotel.getReservations().contains(reservationToRemove));
     }
@@ -82,5 +87,69 @@ public class HotelTest {
     public void testGetNumberOfRoomsWithKingSizeBed() {
         int count = hotel.getNumberOfRoomsWithKingSizeBed(3);
         assertEquals(2, count);
+    }
+
+    @Test
+    public void testAddNewReservation() {
+        try {
+            hotel.addNewReservation(clients.get(1).getId(), rooms.get(1).getId(), LocalDate.now());
+        } catch (Exception e) {
+            fail("Exception thrown: " + e.getMessage());
+        }
+        try {
+            hotel.addNewReservation(clients.get(0).getId(), rooms.get(0).getId(), LocalDate.now());
+        } catch (RoomReservedException e) {
+            assertTrue(true);
+        } catch (Exception e) {
+            fail("Wrong exception thrown: " + e.getMessage());
+        }
+        try {
+            hotel.addNewReservation("wrong_client_id", rooms.get(0).getId(), LocalDate.now());
+        } catch (ClientNotFoundException e) {
+            assertTrue(true);
+        } catch (Exception e) {
+            fail("Wrong exception thrown: " + e.getMessage());
+        }
+        try {
+            hotel.addNewReservation("1", "2030", LocalDate.now());
+        } catch (RoomNotFoundException e) {
+            assertTrue(true);
+        } catch (Exception e) {
+            fail("Wrong exception thrown: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testIsRoomReserved() {
+        try {
+            assertTrue(hotel.isRoomReserved(rooms.get(0).getId(), LocalDate.now()));
+            assertFalse(hotel.isRoomReserved(rooms.get(1).getId(), LocalDate.now()));
+        } catch (RoomNotFoundException e) {
+            fail("Exception thrown: " + e.getMessage());
+        }
+        try {
+            hotel.isRoomReserved("2030", LocalDate.now());
+        } catch (RoomNotFoundException e) {
+            assertTrue(true);
+        } catch (Exception e) {
+            fail("Wrong exception thrown: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void testConfirmReservation() {
+        try {
+            hotel.confirmReservation(reservations.get(0).getReservationId());
+            assertTrue(reservations.get(0).isConfirmed());
+        } catch (Exception e) {
+            fail("Exception thrown: " + e.getMessage());
+        }
+        try {
+            hotel.confirmReservation("wrong_reservation_id");
+        } catch (ReservationNotFoundException e) {
+            assertTrue(true);
+        } catch (Exception e) {
+            fail("Wrong exception thrown: " + e.getMessage());
+        }
     }
 }
