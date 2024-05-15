@@ -57,7 +57,7 @@ public class HotelTest {
 
     @Test
     public void testRemoveRoom() {
-        Room roomToRemove = rooms.get(0);
+        Room roomToRemove = rooms.get(1);
         hotel.getRooms().remove(roomToRemove);
         assertFalse(hotel.getRooms().contains(roomToRemove));
     }
@@ -71,7 +71,7 @@ public class HotelTest {
 
     @Test
     public void testRemoveReservation() {
-        RoomReservation reservationToRemove = reservations.get(0);
+        RoomReservation reservationToRemove = reservations.get(1);
         hotel.getReservations().remove(reservationToRemove);
         assertFalse(hotel.getReservations().contains(reservationToRemove));
     }
@@ -91,19 +91,19 @@ public class HotelTest {
     @Test
     public void addNewReservation() {
         try {
-            hotel.addNewReservation("1", "102", LocalDate.now());
+            hotel.addNewReservation(clients.get(1).getId(), rooms.get(1).getId(), LocalDate.now());
         } catch (Exception e) {
             fail("Exception thrown: " + e.getMessage());
         }
         try {
-            hotel.addNewReservation("2", "102", LocalDate.now());
+            hotel.addNewReservation(clients.get(0).getId(), rooms.get(0).getId(), LocalDate.now());
         } catch (RoomReservedException e) {
             assertTrue(true);
         } catch (Exception e) {
             fail("Wrong exception thrown: " + e.getMessage());
         }
         try {
-            hotel.addNewReservation("100", "103", LocalDate.now());
+            hotel.addNewReservation("wrong_client_id", rooms.get(0).getId(), LocalDate.now());
         } catch (ClientNotFoundException e) {
             assertTrue(true);
         } catch (Exception e) {
@@ -121,8 +121,8 @@ public class HotelTest {
     @Test
     public void isRoomReserved() {
         try {
-            assertTrue(hotel.isRoomReserved("101", LocalDate.now()));
-            assertFalse(hotel.isRoomReserved("102", LocalDate.now()));
+            assertTrue(hotel.isRoomReserved(rooms.get(0).getId(), LocalDate.now()));
+            assertFalse(hotel.isRoomReserved(rooms.get(1).getId(), LocalDate.now()));
         } catch (RoomNotFoundException e) {
             fail("Exception thrown: " + e.getMessage());
         }
