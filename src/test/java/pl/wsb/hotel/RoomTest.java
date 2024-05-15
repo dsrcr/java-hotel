@@ -8,9 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class RoomTest {
     @Test
     public void testRoomFields() {
-        Room room = new Room("12312", "description", 223.45, 4, false, 2, false, true);
+        Room room = new Room("description", 223.45, 4, false, 2, false, true);
 
-        assertEquals("12312", room.getId());
         assertEquals("description", room.getDescription());
         assertEquals(223.45, room.getArea());
         assertEquals(4, room.getFloor());
