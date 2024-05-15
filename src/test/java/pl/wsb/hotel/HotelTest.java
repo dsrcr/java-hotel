@@ -140,6 +140,7 @@ public class HotelTest {
             fail("Wrong exception thrown: " + e.getMessage());
         }
     }
+    @Test
     public void testGetRoomArea() {
         double area = hotel.getRoomArea(rooms.get(0).getId());
         assertEquals(25.0, area);

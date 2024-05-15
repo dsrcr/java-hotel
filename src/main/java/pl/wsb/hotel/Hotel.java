@@ -85,10 +85,10 @@ public class Hotel implements HotelCapability {
     @Override
     public String getClientFullName(String clientId) {
         Client client = clients.stream().filter(c -> c.getId().equals(clientId)).findFirst().orElse(null);
-        if (client != null) {
-            return client.getFullName();
+        if (client == null) {
+            return "User not found!";
         }
-        return "User not found!";
+        return client.getFullName();
     }
 
     @Override
