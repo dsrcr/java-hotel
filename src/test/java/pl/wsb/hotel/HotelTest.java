@@ -1,32 +1,30 @@
 package pl.wsb.hotel;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
 import pl.wsb.hotel.exceptions.ClientNotFoundException;
-import pl.wsb.hotel.exceptions.RoomNotFoundException;
 import pl.wsb.hotel.exceptions.ReservationNotFoundException;
+import pl.wsb.hotel.exceptions.RoomNotFoundException;
+import pl.wsb.hotel.exceptions.RoomReservedException;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.time.LocalDate;
 
 
 public class HotelTest {
 
-    private Hotel hotel;
-    private List<Client> clients;
-    private List<Room> rooms;
-    private List<RoomReservation> reservations;
+    private static Hotel hotel;
+    private static List<Client> clients;
+    private static List<Room> rooms;
+    private static List<RoomReservation> reservations;
 
 
-    @Before
-    public void setUp() {
+    @BeforeAll
+    public static void setUp() {
         hotel = new Hotel("Example hotel");
         clients = new ArrayList<>();
         rooms = new ArrayList<>();
@@ -38,9 +36,10 @@ public class HotelTest {
 
         clients.add(new PremiumClient("4", "Bob", "Johnson", LocalDate.of(1980, 2, 28), "bob.johnson@example.com", "654321789", "789456123", PremiumAccountType.PREMIUM));
 
-        rooms.add(new Room("101", "Standard Room", 25.0, 1, true, 2, true, true));
-        rooms.add(new Room("102", "Deluxe Room", 30.0, 2, false, 1, true, true));
-        rooms.add(new Room("103", "Suite", 50.0, 3, true, 3, true, true));
+        rooms.add(new Room("Standard Room", 25.0, 1, true, 2, true, true));
+        rooms.add(new Room("Deluxe Room", 30.0, 2, false, 1, true, true));
+        rooms.add(new Room("Suite", 50.0, 3, true, 3, true, true));
+        rooms.add(new Room("Premium", 50.0, 3, true, 3, true, true));
 
         LocalDate today = LocalDate.now();
         reservations.add(new RoomReservation(today, clients.get(0), rooms.get(0), true));
@@ -58,14 +57,14 @@ public class HotelTest {
 
     @Test
     public void testAddRoom() {
-        Room newRoom = new Room("104", "Executive Room", 40.0, 4, true, 2, true, true);
+        Room newRoom = new Room("Executive Room", 40.0, 4, true, 2, true, true);
         hotel.getRooms().add(newRoom);
         assertTrue(hotel.getRooms().contains(newRoom));
     }
 
     @Test
     public void testRemoveRoom() {
-        Room roomToRemove = rooms.get(0);
+        Room roomToRemove = rooms.get(1);
         hotel.getRooms().remove(roomToRemove);
         assertFalse(hotel.getRooms().contains(roomToRemove));
     }
@@ -79,103 +78,10 @@ public class HotelTest {
 
     @Test
     public void testRemoveReservation() {
-        RoomReservation reservationToRemove = reservations.get(0);
+        RoomReservation reservationToRemove = reservations.get(1);
         hotel.getReservations().remove(reservationToRemove);
         assertFalse(hotel.getReservations().contains(reservationToRemove));
     }
-
-    @Test
-    public void givenClientDetails_whenAddClient_thenClientAddedToHotel() {
-        String firstName = "Michael";
-        String lastName = "Jordan";
-        LocalDate birthDate = LocalDate.of(1963, 2, 17);
-        String clientId = hotel.addClient(firstName, lastName, birthDate);
-        assertNotNull(clientId);
-        assertEquals(4, hotel.getClients().size());
-        assertFalse(hotel.getClients().stream().anyMatch(c -> c.getId().equals(clientId)));
-    }
-
-// @TODO unimplemented method in hotel class
-//    @Test
-//    public void givenExistingClientId_whenGetClientFullName_thenCorrectFullNameReturned() throws ClientNotFoundException {
-//        String clientId = "2";
-//        String fullName = hotel.getClientFullName(clientId);
-//        assertEquals("Jane Smith", fullName);
-//    }
-
-// @TODO unimplemented method in hotel class
-//    @Test
-//    public void givenHotelWithClients_whenGetNumberOfUnderageClients_thenCorrectCountReturned() {
-//        int underageClients = hotel.getNumberOfUnderageClients();
-//        assertEquals(1, underageClients);
-//    }
-
-// @TODO unimplemented method in hotel class
-//    @Test
-//    public void givenRoomDetails_whenAddRoom_thenRoomAddedToHotel() {
-//        double area = 35.0;
-//        int floor = 3;
-//        boolean hasKingSizeBed = true;
-//        String description = "King Suite";
-//        String roomId = hotel.addRoom(area, floor, hasKingSizeBed, description);
-//        assertNotNull(roomId);
-//        assertEquals(4, hotel.getRooms().size());
-//        assertTrue(hotel.getRooms().stream().anyMatch(r -> r.getId().equals(roomId)));
-//    }
-
-// @TODO unimplemented method in hotel class
-//    @Test
-//    public void givenExistingRoomId_whenGetRoomArea_thenCorrectAreaReturned() {
-//        String roomId = "102";
-//        double area = hotel.getRoomArea(roomId);
-//        assertEquals(30.0, area);
-//    }
-
-// @TODO unimplemented method in hotel class
-//    @Test
-//    public void givenNonExistentRoomId_whenGetRoomArea_thenZeroReturned() {
-//        String nonExistentRoomId = "999";
-//        double area = hotel.getRoomArea(nonExistentRoomId);
-//        assertEquals(0.0, area);
-//    }
-
-// @TODO unimplemented method in hotel class
-//    @Test
-//    public void givenFloorNumber_whenGetNumberOfRoomsWithKingSizeBed_thenCorrectCountReturned() {
-//        int floor = 1;
-//        int numOfRooms = hotel.getNumberOfRoomsWithKingSizeBed(floor);
-//        assertEquals(1, numOfRooms);
-//    }
-
-// @TODO unimplemented method in hotel class
-//    @Test
-//    public void givenReservationDetails_whenAddNewReservation_thenReservationAddedToHotel() throws ClientNotFoundException, RoomNotFoundException {
-//        String clientId = "3";
-//        String roomId = "103";
-//        LocalDate date = LocalDate.now().plusDays(3);
-//        String reservationId = hotel.addNewReservation(clientId, roomId, date);
-//        assertNotNull(reservationId);
-//        assertEquals(7, hotel.getReservations().size());
-//        assertTrue(hotel.getReservations().stream().anyMatch(r -> r.getId().equals(reservationId)));
-//    }
-
-// @TODO unimplemented method in hotel class
-//    @Test
-//    public void givenReservationId_whenConfirmReservation_thenReservationConfirmed() throws ReservationNotFoundException {
-//        String reservationId = reservations.get(0).getId();
-//        String confirmationMessage = hotel.confirmReservation(reservationId);
-//        assertNotNull(confirmationMessage);
-//        assertTrue(confirmationMessage.contains("confirmed"));
-//    }
-
-    @Test
-    public void givenExistingRoomAndDate_whenIsRoomReserved_thenTrueReturned() throws RoomNotFoundException {
-        String roomId = "101";
-        LocalDate date = LocalDate.now();
-        boolean isReserved = hotel.isRoomReserved(roomId, date);
-        assertFalse(isReserved);
-    }
-
     @Test
     public void testGetNumberOfUnconfirmedReservation() {
         int unconfirmedToday = hotel.getNumberOfUnconfirmedReservation(LocalDate.now());

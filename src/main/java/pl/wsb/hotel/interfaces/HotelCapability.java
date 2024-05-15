@@ -16,7 +16,8 @@ public interface HotelCapability {
     int getNumberOfUnderageClients();
 
     // rooms //
-    String addRoom(double area, int floor, boolean hasKingSizeBed, String description);
+    String addRoom(double area, int floor, boolean hasKingSizeBed, String description,
+                   int numberOfWindows, boolean hasAc, boolean hasTv);
     double getRoomArea(String roomId);
     int getNumberOfRoomsWithKingSizeBed(int floor);
 
