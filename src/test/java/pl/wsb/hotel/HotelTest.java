@@ -28,6 +28,7 @@ public class HotelTest {
         clients.add(new Client("1", "John", "Doe", LocalDate.of(1990, 5, 15), "john.doe@example.com", "123456789", "1234567890"));
         clients.add(new Client("2", "Jane", "Smith", LocalDate.of(1985, 10, 20), "jane.smith@example.com", "987654321", "0987654321"));
         clients.add(new Client("3", "Alice", "Johnson", LocalDate.of(1978, 3, 8), "alice.johnson@example.com", "456789123", "4561237890"));
+        clients.add(new Client("5", "Underage", "Client", LocalDate.now().minusYears(15), "underage.client@example.com", "123456789", "1234567890"));
 
         clients.add(new PremiumClient("4", "Bob", "Johnson", LocalDate.of(1980, 2, 28), "bob.johnson@example.com", "654321789", "789456123", PremiumAccountType.PREMIUM));
 
@@ -150,5 +151,18 @@ public class HotelTest {
     public void testGetNumberOfRoomsWithKingSizeBed() {
         int count = hotel.getNumberOfRoomsWithKingSizeBed(3);
         assertEquals(2, count);
+    }
+
+    @Test
+    void testGetClientFullName() {
+        Client client = clients.get(0);
+        String fullName = hotel.getClientFullName(client.getId());
+        assertEquals(hotel.getClientFullName(client.getId()), fullName);
+    }
+
+    @Test
+    void testGetNumberOfUnderageClients() {
+        int count = hotel.getNumberOfUnderageClients();
+        assertEquals(1, count);
     }
 }
