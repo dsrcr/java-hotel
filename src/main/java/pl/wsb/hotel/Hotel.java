@@ -97,18 +97,26 @@ public class Hotel implements HotelCapability {
     }
 
     @Override
-    public String addRoom(double area, int floor, boolean hasKingSizeBed, String description) {
-        return "";
+    public String addRoom(double area, int floor, boolean hasKingSizeBed, String description,
+                          int numberOfWindows, boolean hasAc, boolean hasTv) {
+        Room room = new Room(description, area, floor, hasKingSizeBed, numberOfWindows, hasAc, hasTv);
+        rooms.add(room);
+
+        return room.getId();
     }
 
     @Override
     public double getRoomArea(String roomId) {
-        return 0;
+        Room room = rooms.stream().filter(r -> r.getId().equals(roomId)).findFirst().orElse(null);
+        if (room == null)
+            return 0.0;
+        else
+            return room.getArea();
     }
 
     @Override
     public int getNumberOfRoomsWithKingSizeBed(int floor) {
-        return 0;
+        return (int) rooms.stream().filter(r -> r.getFloor() == floor && r.isHasKingSizeBed()).count();
     }
 
     @Override

@@ -1,57 +1,25 @@
 package pl.wsb.hotel;
 
 import org.junit.jupiter.api.BeforeAll;
-
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import pl.wsb.hotel.exceptions.ClientNotFoundException;
 import pl.wsb.hotel.exceptions.RoomNotFoundException;
 import pl.wsb.hotel.exceptions.RoomReservedException;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.time.LocalDate;
 
 public class HotelTest {
 
-    private Hotel hotel;
-    private List<Client> clients;
-    private List<Room> rooms;
-    private List<RoomReservation> reservations;
-
-    @Test
-    public void testAddClient() {
-        // Tworzenie rzeczywistego obiektu klasy Hotel
-        Hotel hotel = new Hotel("Example hotel");
-
-        // Dane testowe
-        String firstName = "John";
-        String lastName = "Doe";
-        LocalDate birthDate = LocalDate.of(1990, 5, 15);
-
-        // Wywołanie metody addClient
-        String clientId = hotel.addClient(firstName, lastName, birthDate);
-
-        // Sprawdzenie, czy klient został dodany poprawnie
-        assertNotNull(clientId);
-
-        // Pobranie klienta z listy na podstawie ID
-        Client addedClient = hotel.getClients().get(Integer.parseInt(clientId));
-
-        // Sprawdzenie czy dane klienta są poprawne
-        assertEquals(firstName, addedClient.getFirstName());
-        assertEquals(lastName, addedClient.getLastName());
-        assertEquals(birthDate, addedClient.getBirthDate());
-    }
-
+    private static Hotel hotel;
+    private static List<Client> clients;
+    private static List<Room> rooms;
+    private static List<RoomReservation> reservations;
 
     @BeforeAll
-    public void setUp() {
+    public static void setUp() {
         hotel = new Hotel("Example hotel");
         clients = new ArrayList<>();
         rooms = new ArrayList<>();
@@ -63,9 +31,10 @@ public class HotelTest {
 
         clients.add(new PremiumClient("4", "Bob", "Johnson", LocalDate.of(1980, 2, 28), "bob.johnson@example.com", "654321789", "789456123", PremiumAccountType.PREMIUM));
 
-        rooms.add(new Room("101", "Standard Room", 25.0, 1, true, 2, true, true));
-        rooms.add(new Room("102", "Deluxe Room", 30.0, 2, false, 1, true, true));
-        rooms.add(new Room("103", "Suite", 50.0, 3, true, 3, true, true));
+        rooms.add(new Room("Standard Room", 25.0, 1, true, 2, true, true));
+        rooms.add(new Room("Deluxe Room", 30.0, 2, false, 1, true, true));
+        rooms.add(new Room("Suite", 50.0, 3, true, 3, true, true));
+        rooms.add(new Room("Premium", 50.0, 3, true, 3, true, true));
 
         LocalDate today = LocalDate.now();
         reservations.add(new RoomReservation(today, clients.get(0), rooms.get(0), true));
@@ -77,9 +46,29 @@ public class HotelTest {
         hotel.setReservations(reservations);
     }
 
+
+    @Test
+    public void testAddClient() {
+        String firstName = "John";
+        String lastName = "Doe";
+        LocalDate birthDate = LocalDate.of(1990, 5, 15);
+        String clientId = hotel.addClient(firstName, lastName, birthDate);
+        assertNotNull(clientId);
+
+        Client addedClient = hotel.getClients().stream()
+            .filter(client -> client.getId().equals(clientId))
+            .findFirst()
+            .orElse(null);
+        assertNotNull(addedClient);
+        assertEquals(firstName, addedClient.getFirstName());
+        assertEquals(lastName, addedClient.getLastName());
+        assertEquals(birthDate, addedClient.getBirthDate());
+    }
+
+
     @Test
     public void testAddRoom() {
-        Room newRoom = new Room("104", "Executive Room", 40.0, 4, true, 2, true, true);
+        Room newRoom = new Room("Executive Room", 40.0, 4, true, 2, true, true);
         hotel.getRooms().add(newRoom);
         assertTrue(hotel.getRooms().contains(newRoom));
     }
@@ -150,5 +139,15 @@ public class HotelTest {
         } catch (Exception e) {
             fail("Wrong exception thrown: " + e.getMessage());
         }
+    }
+    public void testGetRoomArea() {
+        double area = hotel.getRoomArea(rooms.get(0).getId());
+        assertEquals(25.0, area);
+    }
+
+    @Test
+    public void testGetNumberOfRoomsWithKingSizeBed() {
+        int count = hotel.getNumberOfRoomsWithKingSizeBed(3);
+        assertEquals(2, count);
     }
 }

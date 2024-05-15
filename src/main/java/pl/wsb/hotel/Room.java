@@ -1,5 +1,7 @@
 package pl.wsb.hotel;
 
+import java.util.UUID;
+
 public class Room {
     private String id;
     private String description;
@@ -10,8 +12,9 @@ public class Room {
     private boolean hasAc;
     private boolean hasTv;
 
-    public Room(String id, String description, double area, int floor, boolean hasKingSizeBed, int numberOfWindows, boolean hasAc, boolean hasTv) {
-        this.id = id;
+    public Room(String description, double area, int floor, boolean hasKingSizeBed,
+                int numberOfWindows, boolean hasAc, boolean hasTv) {
+        this.id = generateId();
         this.description = description;
         this.area = area;
         this.floor = floor;
@@ -25,8 +28,8 @@ public class Room {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    private String generateId() {
+        return UUID.randomUUID().toString();
     }
 
     public String getDescription() {
