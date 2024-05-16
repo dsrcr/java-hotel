@@ -11,9 +11,7 @@ import pl.wsb.hotel.exceptions.ReservationNotFoundException;
 import pl.wsb.hotel.exceptions.RoomNotFoundException;
 import pl.wsb.hotel.exceptions.RoomReservedException;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.time.LocalDate;
 
 public class HotelTest {

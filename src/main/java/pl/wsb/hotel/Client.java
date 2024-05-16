@@ -35,9 +35,10 @@ public class Client {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+// this id is generated as uuid, so we can't set it like this right?
+//    public void setId(String id) {
+//        this.id = id;
+//    }
 
     public LocalDate getBirthDate() {
         return birthDate;
