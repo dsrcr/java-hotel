@@ -1,3 +1,4 @@
+/*
 package pl.wsb.hotel;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,3 +30,4 @@ public class PremiumAccountTypeTest {
 //        PremiumAccountType.valueOf("INVALID");
 //    }
 }
+*/

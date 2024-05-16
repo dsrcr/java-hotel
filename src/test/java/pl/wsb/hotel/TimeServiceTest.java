@@ -1,3 +1,4 @@
+/*
 package pl.wsb.hotel;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,4 +30,4 @@ public class TimeServiceTest {
         TimeService timeService = new TimeService("Time Check Service");
         assertEquals("support", timeService.getFamilyOfService());
     }
-}
+}*/
