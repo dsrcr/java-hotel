@@ -1,0 +1,199 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Client</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">pl.wsb.hotel</a>
+</div>
+
+<h1>Coverage Summary for Class: Client (pl.wsb.hotel)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Client</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (17/17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (30/30)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package pl.wsb.hotel;
+&nbsp;
+&nbsp;import java.time.LocalDate;
+&nbsp;import java.time.Period;
+&nbsp;
+&nbsp;public class Client {
+&nbsp;    private String id;
+&nbsp;    private String firstName;
+&nbsp;    private String lastName;
+&nbsp;    private LocalDate birthDate;
+&nbsp;    private String emailAddress;
+&nbsp;    private String phoneNumber;
+&nbsp;    private String pesel;
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;    public Client(String id, String firstName, String lastName, LocalDate birthDate, String emailAddress, String phoneNumber, String pesel) {</b>
+<b class="fc">&nbsp;        this.id = id;</b>
+<b class="fc">&nbsp;        this.firstName = firstName;</b>
+<b class="fc">&nbsp;        this.lastName = lastName;</b>
+<b class="fc">&nbsp;        this.birthDate = birthDate;</b>
+<b class="fc">&nbsp;        this.emailAddress = emailAddress;</b>
+<b class="fc">&nbsp;        this.phoneNumber = phoneNumber;</b>
+<b class="fc">&nbsp;        this.pesel = pesel;</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public Client(String id, String firstName, String lastName, LocalDate birthDate) {</b>
+<b class="fc">&nbsp;        this.id = id;</b>
+<b class="fc">&nbsp;        this.firstName = firstName;</b>
+<b class="fc">&nbsp;        this.lastName = lastName;</b>
+<b class="fc">&nbsp;        this.birthDate = birthDate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public String getId() {
+<b class="fc">&nbsp;        return id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public LocalDate getBirthDate() {
+<b class="fc">&nbsp;        return birthDate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setBirthDate(LocalDate birthDate) {
+<b class="fc">&nbsp;        this.birthDate = birthDate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getFullName() {
+<b class="fc">&nbsp;        return this.firstName + &quot; &quot; + this.lastName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getAge() {
+<b class="fc">&nbsp;        Period period = Period.between(this.birthDate, LocalDate.now());</b>
+<b class="fc">&nbsp;        int[] age = {period.getYears(), period.getMonths(), period.getDays()};</b>
+<b class="fc">&nbsp;        return age[0];</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getLastName() {
+<b class="fc">&nbsp;        return lastName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setLastName(String lastName) {
+<b class="fc">&nbsp;        this.lastName = lastName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getFirstName() {
+<b class="fc">&nbsp;        return firstName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setFirstName(String firstName) {
+<b class="fc">&nbsp;        this.firstName = firstName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getEmailAddress() {
+<b class="fc">&nbsp;        return emailAddress;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setEmailAddress(String emailAddress) {
+<b class="fc">&nbsp;        this.emailAddress = emailAddress;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getPhoneNumber() {
+<b class="fc">&nbsp;        return phoneNumber;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setPhoneNumber(String phoneNumber) {
+<b class="fc">&nbsp;        this.phoneNumber = phoneNumber;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getPesel() {
+<b class="fc">&nbsp;        return pesel;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setPesel(String pesel) {
+<b class="fc">&nbsp;        this.pesel = pesel;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-17 00:21</div>
+</div>
+</body>
+</html>

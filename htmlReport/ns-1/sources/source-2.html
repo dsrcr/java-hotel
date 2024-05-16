@@ -1,0 +1,307 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Hotel</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">pl.wsb.hotel</a>
+</div>
+
+<h1>Coverage Summary for Class: Hotel (pl.wsb.hotel)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Hotel</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    96%
+  </span>
+  <span class="absValue">
+    (24/25)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    91.7%
+  </span>
+  <span class="absValue">
+    (33/36)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    85.5%
+  </span>
+  <span class="absValue">
+    (65/76)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package pl.wsb.hotel;
+&nbsp;
+&nbsp;import pl.wsb.hotel.exceptions.ClientNotFoundException;
+&nbsp;import pl.wsb.hotel.exceptions.ReservationNotFoundException;
+&nbsp;import pl.wsb.hotel.exceptions.RoomNotFoundException;
+&nbsp;import pl.wsb.hotel.exceptions.RoomReservedException;
+&nbsp;import pl.wsb.hotel.interfaces.HotelCapability;
+&nbsp;
+&nbsp;import java.time.LocalDate;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collection;
+&nbsp;import java.util.List;
+&nbsp;import java.util.UUID;
+&nbsp;
+&nbsp;public class Hotel implements HotelCapability {
+&nbsp;    private String name;
+<b class="fc">&nbsp;    private List&lt;Client&gt; clients = List.of();</b>
+<b class="fc">&nbsp;    private List&lt;Room&gt; rooms = List.of();</b>
+<b class="fc">&nbsp;    private List&lt;RoomReservation&gt; reservations = List.of();</b>
+&nbsp;    private List&lt;SpecialService&gt; specialServices;
+&nbsp;
+<b class="nc">&nbsp;    public Hotel(String name, List&lt;SpecialService&gt; specialServices, List&lt;RoomReservation&gt; reservations, List&lt;Room&gt; rooms, List&lt;Client&gt; clients) {</b>
+<b class="nc">&nbsp;        this.name = name;</b>
+<b class="nc">&nbsp;        this.specialServices = specialServices;</b>
+<b class="nc">&nbsp;        this.reservations = reservations;</b>
+<b class="nc">&nbsp;        this.rooms = rooms;</b>
+<b class="nc">&nbsp;        this.clients = clients;</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public Hotel(String name) {</b>
+<b class="fc">&nbsp;        this.name = name;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;Client&gt; getClients() {
+<b class="fc">&nbsp;        return clients;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setClients(List&lt;Client&gt; clients) {
+<b class="fc">&nbsp;        this.clients = clients;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;Room&gt; getRooms() {
+<b class="fc">&nbsp;        return rooms;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setRooms(List&lt;Room&gt; rooms) {
+<b class="fc">&nbsp;        this.rooms = rooms;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;RoomReservation&gt; getReservations() {
+<b class="fc">&nbsp;        return reservations;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setReservations(List&lt;RoomReservation&gt; reservations) {
+<b class="fc">&nbsp;        this.reservations = reservations;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getName() {
+<b class="fc">&nbsp;        return name;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setName(String name) {
+<b class="fc">&nbsp;        this.name = name;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;SpecialService&gt; getSpecialServices() {
+<b class="fc">&nbsp;        return specialServices;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void addSpecialService(List&lt;SpecialService&gt; specialServices) {
+<b class="fc">&nbsp;        this.specialServices = specialServices;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private String generateUniqueId() {
+<b class="fc">&nbsp;        return UUID.randomUUID().toString();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String addClient(String firstName, String lastName, LocalDate birthDate) {
+<b class="fc">&nbsp;        String id = generateUniqueId();</b>
+<b class="fc">&nbsp;        Client newClient = new Client(id, firstName, lastName, birthDate);</b>
+<b class="fc">&nbsp;        clients.add(newClient);</b>
+<b class="fc">&nbsp;        return id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String getClientFullName(String clientId) {
+<b class="fc">&nbsp;        Client client = clients.stream().filter(c -&gt; c.getId().equals(clientId)).findFirst().orElse(null);</b>
+<b class="pc">&nbsp;        if (client == null) {</b>
+<b class="nc">&nbsp;            return &quot;User not found!&quot;;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return client.getFullName();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int getNumberOfUnderageClients() {
+<b class="fc">&nbsp;        return (int) clients.stream().filter(c -&gt; c.getAge() &lt; 18).count();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String addRoom(double area, int floor, boolean hasKingSizeBed, String description,
+&nbsp;                          int numberOfWindows, boolean hasAc, boolean hasTv) {
+<b class="nc">&nbsp;        Room room = new Room(description, area, floor, hasKingSizeBed, numberOfWindows, hasAc, hasTv);</b>
+<b class="nc">&nbsp;        rooms.add(room);</b>
+&nbsp;
+<b class="nc">&nbsp;        return room.getId();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public double getRoomArea(String roomId) {
+<b class="fc">&nbsp;        Room room = rooms.stream().filter(r -&gt; r.getId().equals(roomId)).findFirst().orElse(null);</b>
+<b class="pc">&nbsp;        if (room == null)</b>
+<b class="nc">&nbsp;            return 0.0;</b>
+&nbsp;        else
+<b class="fc">&nbsp;            return room.getArea();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int getNumberOfRoomsWithKingSizeBed(int floor) {
+<b class="fc">&nbsp;        return (int) rooms.stream().filter(r -&gt; r.getFloor() == floor &amp;&amp; r.isHasKingSizeBed()).count();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String addNewReservation(String clientId, String roomId, LocalDate date) throws ClientNotFoundException, RoomNotFoundException, RoomReservedException {
+<b class="fc">&nbsp;        Client client = clients.stream().filter(c -&gt; c.getId().equals(clientId)).findFirst().orElse(null);</b>
+<b class="fc">&nbsp;        if (client == null) {</b>
+<b class="fc">&nbsp;            throw new ClientNotFoundException(&quot;Client &quot; + clientId + &quot; not found!&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        Room room = rooms.stream().filter(r -&gt; r.getId().equals(roomId)).findFirst().orElse(null);</b>
+<b class="fc">&nbsp;        if (room == null) {</b>
+<b class="fc">&nbsp;            throw new RoomNotFoundException(&quot;Room &quot; + roomId + &quot; not found!&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if (isRoomReserved(roomId, date)) {</b>
+<b class="fc">&nbsp;            throw new RoomReservedException(roomId, date);</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        RoomReservation newReservation = new RoomReservation(date, client, room, false);</b>
+<b class="fc">&nbsp;        this.reservations.add(newReservation);</b>
+<b class="fc">&nbsp;        return newReservation.getReservationId();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String confirmReservation(String reservationId) throws ReservationNotFoundException {
+<b class="fc">&nbsp;        RoomReservation reservation = reservations.stream().filter(r -&gt; r.getReservationId().equals(reservationId)).findFirst().orElse(null);</b>
+<b class="fc">&nbsp;        if (reservation == null) {</b>
+<b class="fc">&nbsp;            throw new ReservationNotFoundException(&quot;Reservation &quot; + reservationId + &quot; not found!&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        reservation.setConfirmed(true);</b>
+<b class="fc">&nbsp;        return reservationId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean isRoomReserved(String roomId, LocalDate date) throws RoomNotFoundException {
+<b class="fc">&nbsp;        Room room = rooms.stream().filter(r -&gt; r.getId().equals(roomId)).findFirst().orElse(null);</b>
+<b class="fc">&nbsp;        if (room == null) {</b>
+<b class="fc">&nbsp;            throw new RoomNotFoundException(&quot;Room &quot; + roomId + &quot; not found!&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return this.reservations.stream().anyMatch(r -&gt; r.getRoom().getId()</b>
+<b class="fc">&nbsp;                .equals(roomId) &amp;&amp; r.getDate().equals(date));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int getNumberOfUnconfirmedReservation(LocalDate date) {
+<b class="fc">&nbsp;        int count = 0;</b>
+<b class="fc">&nbsp;        for (RoomReservation reservation : reservations)</b>
+<b class="pc">&nbsp;            if (!reservation.isConfirmed() &amp;&amp; reservation.getDate().equals(date))</b>
+<b class="fc">&nbsp;                count++;</b>
+<b class="fc">&nbsp;        return count;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Collection&lt;String&gt; getRoomIdsReservedByClient(String clientId) throws ClientNotFoundException {
+<b class="fc">&nbsp;        List&lt;String&gt; ids = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="fc">&nbsp;        boolean exists = false;</b>
+<b class="fc">&nbsp;        for (Client client : clients)</b>
+<b class="fc">&nbsp;            if (client.getId().equals(clientId)) {</b>
+<b class="fc">&nbsp;                exists = true;</b>
+&nbsp;                break;
+&nbsp;            }
+&nbsp;
+<b class="fc">&nbsp;        if (!exists)</b>
+<b class="fc">&nbsp;            throw new ClientNotFoundException(&quot;Klient o podanym id: &quot; + clientId + &quot; nie zostal odnaleziony.&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;        for (RoomReservation reservation : reservations)</b>
+<b class="fc">&nbsp;            if (reservation.getClient().getId().equals(clientId))</b>
+<b class="fc">&nbsp;                ids.add(reservation.getRoom().getId());</b>
+&nbsp;
+<b class="fc">&nbsp;        return ids;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-17 00:21</div>
+</div>
+</body>
+</html>

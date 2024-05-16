@@ -1,0 +1,107 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > HotelCapability</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">pl.wsb.hotel.interfaces</a>
+</div>
+
+<h1>Coverage Summary for Class: HotelCapability (pl.wsb.hotel.interfaces)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">HotelCapability</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package pl.wsb.hotel.interfaces;
+&nbsp;
+&nbsp;import pl.wsb.hotel.exceptions.ClientNotFoundException;
+&nbsp;import pl.wsb.hotel.exceptions.ReservationNotFoundException;
+&nbsp;import pl.wsb.hotel.exceptions.RoomNotFoundException;
+&nbsp;import pl.wsb.hotel.exceptions.RoomReservedException;
+&nbsp;
+&nbsp;import java.time.LocalDate;
+&nbsp;import java.util.Collection;
+&nbsp;
+&nbsp;public interface HotelCapability {
+&nbsp;
+&nbsp;    // clients //
+&nbsp;    String addClient(String firstName, String lastName, LocalDate birthDate);
+&nbsp;    String getClientFullName(String clientId);
+&nbsp;    int getNumberOfUnderageClients();
+&nbsp;
+&nbsp;    // rooms //
+&nbsp;    String addRoom(double area, int floor, boolean hasKingSizeBed, String description,
+&nbsp;                   int numberOfWindows, boolean hasAc, boolean hasTv);
+&nbsp;    double getRoomArea(String roomId);
+&nbsp;    int getNumberOfRoomsWithKingSizeBed(int floor);
+&nbsp;
+&nbsp;    // reservations //
+&nbsp;    String addNewReservation(String clientId, String roomId, LocalDate date)
+&nbsp;        throws ClientNotFoundException, RoomNotFoundException, RoomReservedException;
+&nbsp;
+&nbsp;    String confirmReservation(String reservationId)
+&nbsp;        throws ReservationNotFoundException;
+&nbsp;
+&nbsp;    boolean isRoomReserved(String roomId, LocalDate date)
+&nbsp;        throws RoomNotFoundException;
+&nbsp;
+&nbsp;    int getNumberOfUnconfirmedReservation(LocalDate date);
+&nbsp;
+&nbsp;    Collection&lt;String&gt; getRoomIdsReservedByClient(String clientId)
+&nbsp;        throws ClientNotFoundException;
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-17 00:21</div>
+</div>
+</body>
+</html>

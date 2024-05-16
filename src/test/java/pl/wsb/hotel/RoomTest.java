@@ -1,4 +1,3 @@
-/*
 package pl.wsb.hotel;
 
 
@@ -33,4 +32,3 @@ class RoomTest {
         assertEquals(5, room.getNumberOfWindows());
     }
 }
-*/
