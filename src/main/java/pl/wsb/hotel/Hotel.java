@@ -22,7 +22,6 @@ public class Hotel implements HotelCapability {
     public Hotel(String name) {
         this.name = name;
     }
-    
 
     public List<Client> getClients() {
         return clients;
@@ -64,16 +63,16 @@ public class Hotel implements HotelCapability {
         this.specialServices = specialServices;
     }
 
+    private String generateUniqueId() {
+        return UUID.randomUUID().toString();
+    }
+
     @Override
     public String addClient(String firstName, String lastName, LocalDate birthDate) {
         String id = generateUniqueId();
         Client newClient = new Client(id, firstName, lastName, birthDate);
         clients.add(newClient);
         return id;
-    }
-
-    private String generateUniqueId() {
-        return UUID.randomUUID().toString();
     }
 
     @Override
@@ -152,7 +151,6 @@ public class Hotel implements HotelCapability {
                 .equals(roomId) && r.getDate().equals(date));
     }
 
-
     @Override
     public int getNumberOfUnconfirmedReservation(LocalDate date) {
         int count = 0;
@@ -161,7 +159,6 @@ public class Hotel implements HotelCapability {
                 count++;
         return count;
     }
-
 
     @Override
     public Collection<String> getRoomIdsReservedByClient(String clientId) throws ClientNotFoundException {
