@@ -1,0 +1,15 @@
+/home/fw/repos/university/master/java/java-hotel/src/main/java/pl/wsb/hotel/exceptions/ClientNotFoundException.java
+/home/fw/repos/university/master/java/java-hotel/src/main/java/pl/wsb/hotel/TimeService.java
+/home/fw/repos/university/master/java/java-hotel/src/main/java/pl/wsb/hotel/exceptions/RoomNotFoundException.java
+/home/fw/repos/university/master/java/java-hotel/src/main/java/pl/wsb/hotel/LuggageService.java
+/home/fw/repos/university/master/java/java-hotel/src/main/java/pl/wsb/hotel/exceptions/RoomReservedException.java
+/home/fw/repos/university/master/java/java-hotel/src/main/java/pl/wsb/hotel/Client.java
+/home/fw/repos/university/master/java/java-hotel/src/main/java/pl/wsb/hotel/Main.java
+/home/fw/repos/university/master/java/java-hotel/src/main/java/pl/wsb/hotel/SpecialService.java
+/home/fw/repos/university/master/java/java-hotel/src/main/java/pl/wsb/hotel/Hotel.java
+/home/fw/repos/university/master/java/java-hotel/src/main/java/pl/wsb/hotel/exceptions/ReservationNotFoundException.java
+/home/fw/repos/university/master/java/java-hotel/src/main/java/pl/wsb/hotel/RoomReservation.java
+/home/fw/repos/university/master/java/java-hotel/src/main/java/pl/wsb/hotel/PremiumAccountType.java
+/home/fw/repos/university/master/java/java-hotel/src/main/java/pl/wsb/hotel/PremiumClient.java
+/home/fw/repos/university/master/java/java-hotel/src/main/java/pl/wsb/hotel/interfaces/HotelCapability.java
+/home/fw/repos/university/master/java/java-hotel/src/main/java/pl/wsb/hotel/Room.java

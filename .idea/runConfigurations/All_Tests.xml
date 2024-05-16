@@ -3,6 +3,11 @@
     <module name="hotel" />
     <extension name="coverage">
       <pattern>
+        <option name="PATTERN" value="pl.wsb.hotel.Main" />
+        <option name="ENABLED" value="true" />
+        <option name="INCLUDE" value="false" />
+      </pattern>
+      <pattern>
         <option name="PATTERN" value="pl.wsb.hotel.*" />
         <option name="ENABLED" value="true" />
       </pattern>

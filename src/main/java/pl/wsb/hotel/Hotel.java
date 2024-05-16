@@ -7,6 +7,7 @@ import pl.wsb.hotel.exceptions.RoomReservedException;
 import pl.wsb.hotel.interfaces.HotelCapability;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -18,16 +19,16 @@ public class Hotel implements HotelCapability {
     private List<RoomReservation> reservations = List.of();
     private List<SpecialService> specialServices;
 
-    public Hotel(String name) {
-        this.name = name;
-    }
-
     public Hotel(String name, List<SpecialService> specialServices, List<RoomReservation> reservations, List<Room> rooms, List<Client> clients) {
         this.name = name;
         this.specialServices = specialServices;
         this.reservations = reservations;
         this.rooms = rooms;
         this.clients = clients;
+    }
+
+    public Hotel(String name) {
+        this.name = name;
     }
 
     public List<Client> getClients() {
@@ -70,16 +71,16 @@ public class Hotel implements HotelCapability {
         this.specialServices = specialServices;
     }
 
+    private String generateUniqueId() {
+        return UUID.randomUUID().toString();
+    }
+
     @Override
     public String addClient(String firstName, String lastName, LocalDate birthDate) {
         String id = generateUniqueId();
         Client newClient = new Client(id, firstName, lastName, birthDate);
         clients.add(newClient);
         return id;
-    }
-
-    private String generateUniqueId() {
-        return UUID.randomUUID().toString();
     }
 
     @Override
@@ -160,11 +161,31 @@ public class Hotel implements HotelCapability {
 
     @Override
     public int getNumberOfUnconfirmedReservation(LocalDate date) {
-        return 0;
+        int count = 0;
+        for (RoomReservation reservation : reservations)
+            if (!reservation.isConfirmed() && reservation.getDate().equals(date))
+                count++;
+        return count;
     }
 
     @Override
     public Collection<String> getRoomIdsReservedByClient(String clientId) throws ClientNotFoundException {
-        return List.of();
+        List<String> ids = new ArrayList<>();
+
+        boolean exists = false;
+        for (Client client : clients)
+            if (client.getId().equals(clientId)) {
+                exists = true;
+                break;
+            }
+
+        if (!exists)
+            throw new ClientNotFoundException("Klient o podanym id: " + clientId + " nie zostal odnaleziony.");
+
+        for (RoomReservation reservation : reservations)
+            if (reservation.getClient().getId().equals(clientId))
+                ids.add(reservation.getRoom().getId());
+
+        return ids;
     }
 }

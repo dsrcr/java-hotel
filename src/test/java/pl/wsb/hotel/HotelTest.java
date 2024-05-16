@@ -1,7 +1,9 @@
 package pl.wsb.hotel;
 
 import org.junit.jupiter.api.BeforeAll;
+
 import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 
 import pl.wsb.hotel.exceptions.ClientNotFoundException;
@@ -9,8 +11,7 @@ import pl.wsb.hotel.exceptions.ReservationNotFoundException;
 import pl.wsb.hotel.exceptions.RoomNotFoundException;
 import pl.wsb.hotel.exceptions.RoomReservedException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.time.LocalDate;
 
 public class HotelTest {
@@ -19,6 +20,7 @@ public class HotelTest {
     private static List<Client> clients;
     private static List<Room> rooms;
     private static List<RoomReservation> reservations;
+    private static List<SpecialService> specialServices;
 
     @BeforeAll
     public static void setUp() {
@@ -26,6 +28,7 @@ public class HotelTest {
         clients = new ArrayList<>();
         rooms = new ArrayList<>();
         reservations = new ArrayList<>();
+        specialServices = new ArrayList<>();
 
         clients.add(new Client("1", "John", "Doe", LocalDate.of(1990, 5, 15), "john.doe@example.com", "123456789", "1234567890"));
         clients.add(new Client("2", "Jane", "Smith", LocalDate.of(1985, 10, 20), "jane.smith@example.com", "987654321", "0987654321"));
@@ -44,11 +47,43 @@ public class HotelTest {
         reservations.add(new RoomReservation(today.plusDays(1), clients.get(1), rooms.get(1), false));
         reservations.add(new RoomReservation(today.plusDays(2), clients.get(2), rooms.get(2), true));
 
+
         hotel.setClients(clients);
         hotel.setRooms(rooms);
         hotel.setReservations(reservations);
     }
 
+    @Test
+    public void testGetName() {
+        assertEquals("Example hotel", hotel.getName());
+    }
+
+    @Test
+    public void testSetName() {
+        String newName = "New Hotel Name";
+        hotel.setName(newName);
+        assertEquals(newName, hotel.getName());
+    }
+
+    @Test
+    public void testGetSpecialServices() {
+        assertNull(hotel.getSpecialServices());
+    }
+
+    @Test
+    public void testAddSpecialService() {
+        LuggageService x = new LuggageService("Walizki");
+        LuggageService y = new LuggageService("Samochód");
+        TimeService z = new TimeService("Czas");
+
+        specialServices.add(x);
+        specialServices.add(y);
+        specialServices.add(z);
+
+        hotel.addSpecialService(specialServices);
+        assertNotNull(hotel.getSpecialServices());
+        assertEquals(3, hotel.getSpecialServices().size());
+    }
 
     @Test
     public void testAddClient() {
@@ -59,15 +94,14 @@ public class HotelTest {
         assertNotNull(clientId);
 
         Client addedClient = hotel.getClients().stream()
-            .filter(client -> client.getId().equals(clientId))
-            .findFirst()
-            .orElse(null);
+                .filter(client -> client.getId().equals(clientId))
+                .findFirst()
+                .orElse(null);
         assertNotNull(addedClient);
         assertEquals(firstName, addedClient.getFirstName());
         assertEquals(lastName, addedClient.getLastName());
         assertEquals(birthDate, addedClient.getBirthDate());
     }
-
 
     @Test
     public void testAddRoom() {
@@ -143,6 +177,7 @@ public class HotelTest {
             fail("Wrong exception thrown: " + e.getMessage());
         }
     }
+
     @Test
     public void testGetRoomArea() {
         double area = hotel.getRoomArea(rooms.get(0).getId());
@@ -183,5 +218,29 @@ public class HotelTest {
         } catch (Exception e) {
             fail("Wrong exception thrown: " + e.getMessage());
         }
+    }
+
+    @Test
+    public void testGetNumberOfUnconfirmedReservation() {
+        int unconfirmedToday = hotel.getNumberOfUnconfirmedReservation(LocalDate.now());
+        assertEquals(1, unconfirmedToday);
+
+        int unconfirmedTomorrow = hotel.getNumberOfUnconfirmedReservation(LocalDate.now().plusDays(1));
+        assertEquals(1, unconfirmedTomorrow);
+    }
+
+    @Test
+    public void testGetRoomIdsReservedByClient() throws ClientNotFoundException {
+        Collection<String> reservedRoomIds = hotel.getRoomIdsReservedByClient("1");
+        assertEquals(1, reservedRoomIds.size());
+        assertFalse(reservedRoomIds.contains("101"));
+    }
+
+    @Test
+    public void testGetRoomIdsReservedByNonExistentClient() {
+        assertThrows(ClientNotFoundException.class, () -> {
+            // @TODO Increment this value after adding new client
+            hotel.getRoomIdsReservedByClient("6");
+        });
     }
 }
