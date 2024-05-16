@@ -12,6 +12,7 @@ public class Client {
     private String phoneNumber;
     private String pesel;
 
+
     public Client(String id, String firstName, String lastName, LocalDate birthDate, String emailAddress, String phoneNumber, String pesel) {
         this.id = id;
         this.firstName = firstName;
@@ -21,6 +22,14 @@ public class Client {
         this.phoneNumber = phoneNumber;
         this.pesel = pesel;
     }
+
+    public Client(String id, String firstName, String lastName, LocalDate birthDate) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+    }
+
 
     public String getId() {
         return id;
